@@ -1,0 +1,36 @@
+workspace에서 cmd 켜서 
+C:\java\workspace3>echo .class
+.class
+
+C:\java\workspace3>echo .class >> .gitignore
+로 ignore 파일 생성해서 추적하지 않을 내용들 다 넣기
+
+xml추가해서 프로젝트 생성
+프로젝트 > properties > bluid Path > Libraries > add Library > User Library > 
+	new > lib명 생성 > Add External JARs 해서 받은거 추가
+	> 해당 lib이 추가된 것을 확인
+	> 이클립스에서도 사용하고 컴파일때도 사용하기 위해서 
+		>프로젝트 properties > deployment assembly > Add > java build path entries ==> webContent에 web-inf에 lib에 있는 것 처럼
+		= 프로젝트와 lib와의 분리를 통해서 버전 관리 대상을 프로젝트만으로 한정
+
+web.xml에서 filter 추가 
+  <filter>
+  	<filter-name>struts01</filter-name>
+  	<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+
+lib에 있는 class내용을 보고 싶으면 > scr 추가해서 사용
+
+기존처럼 어떻게 만들까 x > 어떤 기능을 사용해서 만들까 o
+	>어떤 클래스에서 어떤 파일을 선택해서 사용할까 ? 잘 찾아야 함
+
+scr에 struts.xml 파일 추가
+	struts형식에 맞추기 위해 스키마를 맞춰야 함 > struts core > struts-default.xml에서 스키마 찾아서 (열때 마다 오류)
+	> DOCTYPE만 copy
+		>자동 완성을 통해 형식 생성 > package > 
+			필수 속성으로 중복 되지 않을name과 struts-default를 extends
+			ation을 통해 어떤 동작이 일어날지 추가 
+	프로젝트를 실행하면 프로젝트명/ 이 실행 되면서 자동으로 index.jsp로 연결
+		좀 전에 했떤 ation을 추가한 내용을 실행 하기 위해 struts.xml에서 ation의 <name>.ation을 실행하면 result로 설정한 페이지로 이동
+
+pc의 환경 성능에 영향을 많이 받음
