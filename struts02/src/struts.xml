@@ -8,7 +8,9 @@
 	<!-- namespace는 depth, /만 쓰면 와일드(depth가 계속 깊어 질 수 있음) -->
 	<package name="pack01" namespace="/" extends="struts-default">
 		<action name="ex01" class="com.bit.action.Ex01Action">
-			<result>/index.jsp</result>
+			<result name="success">/index.jsp</result>
+			<result name="error">/err.jsp</result>
+			<result name="input">/form.jsp</result>
 		</action>
 	</package>
 	
