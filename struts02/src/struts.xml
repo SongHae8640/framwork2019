@@ -41,7 +41,7 @@
 		<action name="result" class="com.bit.action.ResultAction">
 			<interceptor-ref name="params"></interceptor-ref>
 			<result name="input">/input.jsp</result>
-			<result name="success">/result.jsp</result>
+			<result name="success">/ex01.action</result>
 			<!-- 동일 패키지의 .action으로 바로(다른 패키지 이동 불가)-->
 			<!-- type redirect는 sendRedirect와 같고, default는 forword 와 같다.redirect가 root context 다음이기 때문에 밖으로 못나감 -->
 		</action>

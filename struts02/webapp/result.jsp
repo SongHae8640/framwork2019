@@ -11,6 +11,6 @@
 	
 	<!-- getParameter 아님, getParam은 주소에서 가져오는 것 -->
 	<p><%=request.getAttribute("id") %></p>
-	<p><%=request.getAttribute("num") %></p>
+	<p><%=request.getAttribute("pw") %></p>
 </body>
 </html>
