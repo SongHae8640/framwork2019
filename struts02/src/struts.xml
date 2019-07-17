@@ -23,5 +23,29 @@
 		</action>
 	</package>
 	
+	<!-- pack01을 상속 받았기 때문에 /next/ex01.action 도 가능 
+		namespace가 다르면 name이 같아도 가능
+		동일  package.namespace에 동일 action.name 불가능(but 되게 하기도 함)-->
+	<package name="pack02" namespace="/next" extends="pack01">
+		<action name="ex01" class="com.bit.action.Ex04Action">
+			<result name="success">
+				<param name ="id">admin</param>
+				<param name="pw">1234</param>				
+				<param name="actionName">result</param>
+				
+			</result>
+		</action>
+		<action name="input" class="com.bit.action.InputAction">
+			<result name="success">/input.jsp</result> <!-- result.name의 default는 success -->
+		</action>
+		<action name="result" class="com.bit.action.ResultAction">
+			<interceptor-ref name="params"></interceptor-ref>
+			<result name="input">/input.jsp</result>
+			<result name="success">/result.jsp</result>
+			<!-- 동일 패키지의 .action으로 바로(다른 패키지 이동 불가)-->
+			<!-- type redirect는 sendRedirect와 같고, default는 forword 와 같다.redirect가 root context 다음이기 때문에 밖으로 못나감 -->
+		</action>
+	</package>
+	
 </struts>
     
