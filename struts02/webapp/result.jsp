@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello Struts02</h1>
-	<a href="ex02.action">link</a>
+	<h1>결과 페이지</h1>
+	
+	<!-- getParameter 아님, getParam은 주소에서 가져오는 것 -->
+	<p><%=request.getAttribute("id") %></p>
+	<p><%=request.getAttribute("num") %></p>
 </body>
 </html>

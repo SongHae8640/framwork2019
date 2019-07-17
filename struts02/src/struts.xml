@@ -12,6 +12,15 @@
 			<result name="error">/err.jsp</result>
 			<result name="input">/form.jsp</result>
 		</action>
+		
+		<action name="ex02" class="com.bit.action.Ex02Action">
+			<result name="success">/form.jsp</result>
+		</action>
+		
+		<action name="ex03" class="com.bit.action.Ex03Action">
+			<interceptor-ref name="params"></interceptor-ref>
+			<result name="success">/result.jsp</result>
+		</action>
 	</package>
 	
 </struts>
