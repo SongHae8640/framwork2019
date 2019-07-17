@@ -48,7 +48,7 @@ public class MainController extends HttpServlet {
 	     
 	     //log4j.properties에서 설정한 값에 따라 실행
 	     //설정한 값의 하위 내용이 실행 
-	     //ex) log4j.logger.com.bit.controller=trace  는 
+	     //ex) log4j.logger.com.bit.controller=warn  는 warn , error, fatal
 	     
 		
 		req.getRequestDispatcher("index.jsp").forward(req, resp);
@@ -66,7 +66,6 @@ public class MainController extends HttpServlet {
 %m  로그내용이 출력됩니다 
 %d  로깅 이벤트가 발생한 시간을 기록합니다.
   포맷은 %d{HH:mm:ss, SSS}, %d{yyyy MMM dd HH:mm:ss, SSS}같은 형태로 사용하며 SimpleDateFormat에 따른 포맷팅을 하면 된다 
-%t  로그이벤트가 발생된 쓰레드의 이름을 출력합니다.  
 %%  % 표시를 출력하기 위해 사용한다.  
 %n  플랫폼 종속적인 개행문자가 출력된다. \r\n 또는 \n 일것이다.  
 %c  카테고리를 표시합니다 
