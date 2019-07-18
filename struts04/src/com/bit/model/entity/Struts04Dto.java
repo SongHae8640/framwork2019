@@ -61,6 +61,14 @@ public class Struts04Dto {
 	public void setNalja(Date nalja) {
 		this.nalja = nalja;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Struts04Dto [num=" + num + ", sub=" + sub + ", name=" + name
+				+ ", content=" + content + ", nalja=" + nalja + "]";
+	}
+	
 	
 	
 

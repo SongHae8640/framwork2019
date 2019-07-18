@@ -22,6 +22,8 @@
     		<result>/bbs/add.jsp</result>
     	</action>
     	<action name="insert" class="com.bit.action.InsertAction">
+    		<!--  modelDriven이 먼저 작동해서 bean객체르 보낸다.   -->
+    		<interceptor-ref name="modeltDriven"></interceptor-ref>
     		<interceptor-ref name="params"></interceptor-ref>
     		<result type="redirectAction">list</result>
     	</action>
