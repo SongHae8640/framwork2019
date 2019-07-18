@@ -10,7 +10,7 @@
 	<h1>입력 페이지</h1>
 	<form action ="ex03.action">
 		<div>
-			<label for="id">ID</label>
+			<label for="id">Id</label>
 			<input type= "text" name="id">
 		</div>
 		<div>

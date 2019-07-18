@@ -1,0 +1,125 @@
+1. Listener & filter
+	ServletContextListener를 상속받아 Listener 클래스 생성
+	javax.servlet.Filter를 상속 받아 Filter 클래스 생성
+
+	Listener는 서버가 실행할때, 그 다음에 Filter
+	url로 접근하자 Filter의 doFilter 실행, but Controller는 실행되지 않음(Controller와 매핑한 페이지도 안뜸)
+	
+	Filter는 chainning으로 연결시킬수 있음 =FilterChain
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>frame01</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 어느곳에서든 사용가능한 param -->
+  <context-param>
+  	<param-name>numMsg</param-name>
+  	<param-value>12345</param-value>
+  </context-param>
+  
+  <!-- listener 등록 -->
+  <listener>
+  	<listener-class>com.bit.utils.MyListener</listener-class>
+  </listener>
+  
+  <!-- filter 등록 -->
+  <!--
+  	filter mapping에 의해서 filter chain의 순서가 결정된다. 
+  	struts는 * 처리를 통해서 모든 정보를 filter를 통해 먼저 처리한다.
+  -->
+  <filter>
+  	<filter-name>myFilter</filter-name>
+  	<filter-class>com.bit.utils.MyFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>myFilter</filter-name>
+  	<url-pattern>/main.do</url-pattern>
+  </filter-mapping>
+   <filter>
+  	<filter-name>bitFilter</filter-name>
+  	<filter-class>com.bit.utils.BitFilter</filter-class>
+  	<init-param>
+  		<param-name>strMsg</param-name>
+  		<param-value>abcdefg</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>bitFilter</filter-name>
+  	<url-pattern>/two.do</url-pattern>
+  </filter-mapping>
+  <filter>
+  	<filter-name>mainFilter</filter-name>
+  	<filter-class>com.bit.utils.MainFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>mainFilter</filter-name>
+  	<url-pattern>/bit.do</url-pattern>
+  </filter-mapping>
+  
+  <!-- servlet 등록 -->
+  <servlet>
+  	<servlet-name>main</servlet-name>
+  	<servlet-class>com.bit.controller.MainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>main</servlet-name>
+  	<url-pattern>/main.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>two</servlet-name>
+  	<servlet-class>com.bit.controller.TwoController</servlet-class>
+  	<init-param>
+  		<param-name>msg</param-name>
+  		<param-value>Hello</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>two</servlet-name>
+  	<url-pattern>/two.do</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+-web.xml을 수정할 때는 서버를 껏다 다시 킬것 (annotaion은 괜춘)
+
+--어노테이션 방식
+  <servlet>
+  	<servlet-name>main</servlet-name>
+  	<servlet-class>com.bit.controller.MainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>main</servlet-name>
+  	<url-pattern>/</url-pattern>
+  	<!-- 주소,확장명  없이 사용하고 싶을 때. /* 아님, 
+  	확장자가 있을때는 /*.<확장자명> -->
+  </servlet-mapping>
+
+
+----------------------------------
+  <filter>
+  	<filter-name>main</filter-name>
+  	<filter-class>com.bit.utils.MainFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>main</filter-name>
+  	<url-pattern>/main.do</url-pattern>
+  	<!-- 
+  		/*.<확장자명> 오류
+  		/ 만으로 와일드 안됨(오류)
+  		/* 이게 와일드
+  	 -->
+  </filter-mapping>
+
+
+2.logging - log4j 
+	범용적인 로그 활용을 위해 + 로그 메세지 관리를 위해
+

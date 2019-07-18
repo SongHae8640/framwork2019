@@ -29,8 +29,8 @@ public class Ex03Action implements Action {
 
 	@Override
 	public String execute() throws Exception {
-		log.debug("param : " +id);
-		log.debug("param : "+ (num+1));
+		log.debug("id : " +id);
+		log.debug("num : "+ (num));
 		
 		return this.SUCCESS;
 	}
