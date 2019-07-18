@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>Hello struts04(index.jsp)</h1>
-	<a href="index.action">[입장]</a>
+	<a href="index.action">[입장]</a><br>
+	<a href="bbs/list.action">[리스트]</a>
 </body>
 </html>

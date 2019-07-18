@@ -11,6 +11,17 @@ public class Struts04Dto {
 		
 	}
 
+
+	public Struts04Dto(int num, String sub, String name, String content,
+			Date nalja) {
+		this.num = num;
+		this.sub = sub;
+		this.name = name;
+		this.content = content;
+		this.nalja = nalja;
+	}
+
+
 	public int getNum() {
 		return num;
 	}

@@ -15,6 +15,7 @@
     
     <package name="basic2" namespace="/bbs" extends="basicstruts2">
     	<action name="list" class="com.bit.action.ListAction">
+    		<interceptor-ref name="params"></interceptor-ref>
     		<result>/bbs/list.jsp</result>
     	</action>
     </package>
