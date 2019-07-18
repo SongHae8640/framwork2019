@@ -18,6 +18,13 @@
     		<interceptor-ref name="params"></interceptor-ref>
     		<result>/bbs/list.jsp</result>
     	</action>
+    	<action name="add">
+    		<result>/bbs/add.jsp</result>
+    	</action>
+    	<action name="insert" class="com.bit.action.InsertAction">
+    		<interceptor-ref name="params"></interceptor-ref>
+    		<result type="redirectAction">list</result>
+    	</action>
     </package>
 
 </struts>

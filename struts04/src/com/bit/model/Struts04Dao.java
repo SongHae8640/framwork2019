@@ -21,19 +21,30 @@ public class Struts04Dao {
 	private ResultSet rs;
 	
 	
-	public List<Struts04Dto> getList() {
-		List<Struts04Dto> list = new ArrayList<Struts04Dto>();
-		
+	public Struts04Dao() {
 		try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		
+	}
+	
+	public void close(){
+		try {
+			if(rs!=null)rs.close();
+			if(pstmt!=null)pstmt.close();
+			if(conn!=null)conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public List<Struts04Dto> getList() {
+		List<Struts04Dto> list = new ArrayList<Struts04Dto>();
 		String sql = "SELECT * FROM SCOTT.STRUTS04 ORDER BY num DESC";
-		
 		
 		try{
 			pstmt = conn.prepareStatement(sql);
@@ -51,15 +62,30 @@ public class Struts04Dao {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally{
-			try {
-				if(rs!=null)rs.close();
-				if(pstmt!=null)pstmt.close();
-				if(conn!=null)conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			close();
 		}
 		return list;
+	}
+
+
+	public int insertOne(String sub, String name, String content) {
+		String sql = "INSERT INTO struts04(num, sub, name, content,nalja) "
+				+ "VALUES(struts04_seq.nextval,?,?,?,SYSDATE)";
+		int result =-1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, sub);
+			pstmt.setString(2, name);
+			pstmt.setString(3, content);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close();
+		}
+		
+		return result;
 	}
 }
