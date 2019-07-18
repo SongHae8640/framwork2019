@@ -85,7 +85,26 @@ public class Struts04Dao {
 		}finally{
 			close();
 		}
+		return result;
+	}
+	
+	public int insertOne(Struts04Dto bean) {
+		String sql = "INSERT INTO struts04(num, sub, name, content,nalja) "
+				+ "VALUES(struts04_seq.nextval,?,?,?,SYSDATE)";
+		int result =-1;
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bean.getSub());
+			pstmt.setString(2, bean.getName());
+			pstmt.setString(3, bean.getContent());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close();
+		}	
 		return result;
 	}
 }

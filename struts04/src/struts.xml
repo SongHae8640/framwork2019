@@ -23,8 +23,12 @@
     	</action>
     	<action name="insert" class="com.bit.action.InsertAction">
     		<!--  modelDriven이 먼저 작동해서 bean객체르 보낸다.   -->
-    		<interceptor-ref name="modeltDriven"></interceptor-ref>
+    		<interceptor-ref name="prepare"></interceptor-ref>
+    		<interceptor-ref name="modelDriven"></interceptor-ref>
     		<interceptor-ref name="params"></interceptor-ref>
+    		<!-- struts-default에 default로 interceptor가 정의 되어 있기 때문에 그냥 써도 됨 
+    			=> pojo = 순수 오랜된 자바 객체로 객체 만들어서 바로 사용하자!
+    		-->
     		<result type="redirectAction">list</result>
     	</action>
     </package>
