@@ -1,0 +1,2 @@
+폴더에서 resources 추가하고 
+	프로젝트 > properties > build path 에서 resources 추가

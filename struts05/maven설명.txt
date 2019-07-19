@@ -1,0 +1,75 @@
+ant는 프로젝트 마다 환경 설정을 해줘야 하는 불편함이 있음(보통은 같은 작업) 
+> 이러한 불편함을 해결하기 위해서 maven 탄생 
+	but,  규격화된 툴이기 때문에 커스텀 작업이 불가능하다.
+	java만을 위한 빌드 툴(ant는 java가 주로 쓰이지만 다른 언어도 가능)
+		>jdk 필요
+
+시스템 변수를 설정하는 이유
+	1. 실행 파일의 위치를 변경 할 수 있기 때문에 (+path 보호)
+	2. 다른 프로그램(이클립스) 등에서 해당 내용을 찾을 때 변수 명을 통해서 찾음
+
+dir 구조를 세분화 (src > main > java 밑에 패키지)
+	작업할 부분은 main
+		main > java를 따로 두는 이유는 .properties , .xml (struts.xml은 src 바로 아래에 있어야 함) 등 과 분리해서 java파일만 넣는
+		main > 000 에 따로 관리
+		=>dir 구조는 다르지만 packaging 할때는 같이 함(편의성을 위해). spring은 기본 구조가 maven의 dir 구조
+	test는 test 프레임 워크를 통해 테스트 코드를 작성 할 수 있도록. 재사용이 가능하지만 배포때 포함되지 않는 코드 관리
+
+ant를 통해서 dir만들고 file 만들고 함.
+
+default로 선택 되는 archetypeArtifactId는 quickstart.
+archetypeVersion 은 설정한 archetypeArtifactId 의 버전
+interactiveMode는 
+version이 *.*-SNAPSHOT의 의미는 메에저.마이너-형상관리 중간에 찍어놨다. SNAPSHOT 은 버전관리를 위해, RELEASE는 배포용
+properties는 변수라 생각하면 됨
+
+*중요
+dependancise : 외부 라이브러리 관리
+	repository 에서 가져와서 관리. 로컬에 없으면 다운로드, 있으면 있는거 가져다 씀
+		oracle 꺼는 회사에서 막았기 때문에 로컬에 있는 odjc.jar 를 repository에 옴겨서 사용할 수 있음
+	remote repository에서 maven 뿐만 아니라 다른 빌드 관리 툴에서 사용되는 라이브러리도 관리함 
+plugin : 메이븐에서 사용하는 기능
+	repository의 내용을 plugin으로 가져다 쓸 수 있음
+	dependancies와의 차이는 
+
+
+Maven Phases
+	validate: 잘 됬는지 확인
+	compile: 컴파일 - 자바의 경우 컴파일하면 class 가 생김 > target
+		target\classes\com\mycompany\app 에 생김. 없으면 생기고 있으면 다시 만들지 않음
+	test: junit 테스트를 진행
+	package: take the compiled code and package it in its distributable format, such as a JAR.
+	integration-test: process and deploy the package if necessary into an environment where integration tests can be run
+	verify: run any checks to verify the package is valid and meets quality criteria
+	install: install the package into the local repository, for use as a dependency in other projects locally
+	deploy: done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects.clean: cleans up artifacts created by prior builds
+	site: generates site documentation for this project
+
+의존성
+	a라이브러리를 사용하기 위해 필요한 b c 라이브러리를 같이 받음
+
+compile 
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.3</version>	<!-- 컴파일러 버전 -->
+      <configuration>
+        <source>1.7</source>	<!-- 이클립스에서 자바 버전을 바꾸는 것과 같은 기능 -->
+        <target>1.5</target>	<!-- jdk의 버전. 1.8까지만 가능하기 때문에 jdk의 버전을 그 이상으로 올리지 말것 -->
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+</project>
+
+build 안에  finalName이 최종적으로 배포될 이름
+
+filter를 통해 archetype을 검색할 수 있다.
+	mvn archetype:generate -Dfilter=webapp
+
+jetty
+	톰캣같은 서버인데 경량화된 컨테이너
+	이클립스에서 간단하게 사용해서 확인할 만한
+	메이븐으로 jetty를 사용하여 돌리려 함 > plugin
