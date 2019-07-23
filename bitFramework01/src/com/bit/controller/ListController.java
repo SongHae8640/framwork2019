@@ -1,9 +1,15 @@
 package com.bit.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
+import com.bit.entity.Bbs02Dao1;
+
 public class ListController implements Controller {
-	public String execute(HttpServletRequest req){
+	public String execute(HttpServletRequest req) throws SQLException{
+		Bbs02Dao1 dao = new Bbs02Dao1();
+		req.setAttribute("aList", dao.getList());
 		return "bbs/list";
 	}
 

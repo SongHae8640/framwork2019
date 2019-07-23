@@ -10,5 +10,6 @@
 	<h1>index page(index.jsp)</h1>
 	<p>${msg }</p>
 
+	<a href="main.bit">[메인]</a>
 </body>
 </html>

@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>main page(main.jsp)</h1>
+	<a href="list.bit">[리스트]</a>
 
 </body>
 </html>
