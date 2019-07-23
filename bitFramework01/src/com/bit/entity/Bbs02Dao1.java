@@ -89,6 +89,15 @@ public class Bbs02Dao1 {
 		String sql = "INSERT INTO bbs02 VALUES(bbs02_num_seq.nextval,?,?,?,SYSDATE)";
 		return executeUpdate(sql, new Object[]{name,sub,content});
 	}
+	public int updateOne(Bbs02Vo bean) throws SQLException{
+		String sql = "UPDATE bbs02 SET sub=? , content=? WHERE num=?";
+		return executeUpdate(sql, new Object[]{bean.getSub(),bean.getContent(),bean.getNum()});
+	}
+	
+	public int updateOne(int num) throws SQLException{
+		String sql = "DELETE FROM bbs02 WHERE num=?";
+		return executeUpdate(sql, new Object[]{num});
+	}
 
 	public Bbs02Vo selectOne(int num) throws SQLException {
 		String sql = "SELECT * FROm bbs02 WHERE num = ?";
@@ -118,15 +127,7 @@ public class Bbs02Dao1 {
 		return null;
 	}
 	
-	public int updateOne(Bbs02Vo bean) throws SQLException{
-		String sql = "UPDATE bbs02 SET sub=? , content=? WHERE num=?";
-		return executeUpdate(sql, new Object[]{bean.getSub(),bean.getContent(),bean.getNum()});
-	}
 	
-	public int updateOne(int num) throws SQLException{
-		String sql = "DELETE FROM bbs02 WHERE num=?";
-		return executeUpdate(sql, new Object[]{num});
-	}
 
 
 }
