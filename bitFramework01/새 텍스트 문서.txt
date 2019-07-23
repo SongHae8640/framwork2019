@@ -1,0 +1,32 @@
+-환경 설정
+	pom.xml에서 
+	<warSourceDirectory>webapp</warSourceDirectory> 
+	이게 없으면 webapp가 src 안에 있어야 함
+
+	<failOnMissingWebXml>false</failOnMissingWebXml>
+	이 없는데 web.xml이 없으면 진행이 안됨 
+
+	<artifactId>maven-war-plugin</artifactId>
+	이 플로그 인으로 작동해줌
+
+	maven war의 버전과 이클립스를 맞추기 위해  버전을 2.x로 
+
+	<source>1.8</source> - jdk의 문법 적인 부분을 컴파일 하기 위해
+ 	<target>1.8</target> - 실행하는 타겟의 버전 
+	일반적으로 이 둘을 같은 버전으로 해줌 
+
+-구분
+	//bit framework
+	com.bit.framework
+		url에 따라 다른 기능 = controller, view
+
+	//user
+	com.bit.controller
+
+-jsp직접 접근 막기
+	WEB-INF 안에 view 폴더를 만들고 그 안에 넣기
+	controller 를 통해서 접근
+
+
+mainController 추가, 리팩토링 약간, jsp직접 접근 막기, Controller 다형성 처리
+

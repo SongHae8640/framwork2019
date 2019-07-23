@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bit.controller.Controller;
 import com.bit.controller.IndexController;
+import com.bit.controller.ListController;
+import com.bit.controller.MainController;
 
 /*
  * struts에서 filter에서 사용하던것과 같은 기능
@@ -34,20 +37,23 @@ public class DispatcherServlet extends HttpServlet{
 		System.out.println("doDo 호출");
 		
 		String viewName ="";
-		
-		//context 받기
-		String root = req.getContextPath();
-		System.out.println("getContextPath = "+root);
+		Controller controller = null;
 		
 		//url 받기
+		String root = req.getContextPath();	
 		String path = req.getRequestURI().substring(root.length());
 		System.out.println("path = "+path);
 		
+		//controller 이동
 		if(path.equals("/index.bit")){
-			IndexController controller = new IndexController();
-			viewName = controller.execute(req);
+			controller = new IndexController();
+		}else if(path.equals("/main.bit")){
+			controller = new MainController();
+		}else if(path.equals("/list.bit")){
+			controller = new ListController();
 		}
 		
+		viewName ="/WEB-INF/view/"+ controller.execute(req)+".jsp";
 		req.getRequestDispatcher(viewName).forward(req, resp);
 		
 	}
