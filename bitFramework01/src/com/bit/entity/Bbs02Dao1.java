@@ -21,7 +21,6 @@ public class Bbs02Dao1 {
 	
 	
 	public Connection getConnection(){
-		Connection conn = null;
 		try {
 			if(conn==null || conn.isClosed()){
 				Class.forName(driver);
@@ -35,13 +34,19 @@ public class Bbs02Dao1 {
 		return conn;
 	}
 	
+	public void closeAll() throws SQLException{
+		if(rs !=null) rs.close();
+		if(pstmt !=null) pstmt.close();
+		if(conn !=null) conn.close();
+	}
+	
 	public List getList() throws SQLException{
 		String sql = "SELECT num, name, sub, nalja FROM bbs02";
 		List list = new ArrayList();
 		
 		
 		try {
-			conn = getConnection();
+			getConnection();
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()){
@@ -54,9 +59,7 @@ public class Bbs02Dao1 {
 				
 			}
 		}finally{
-			if(rs !=null) rs.close();
-			if(pstmt !=null) pstmt.close();
-			if(conn !=null) conn.close();
+			closeAll();
 		}
 		
 		
@@ -68,7 +71,7 @@ public class Bbs02Dao1 {
 		int result = -1;
 		
 		try {
-			Connection conn= getConnection();
+			getConnection();
 			pstmt= conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, sub);
@@ -78,8 +81,7 @@ public class Bbs02Dao1 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
-			if(pstmt !=null) pstmt.close();
-			if(conn !=null) conn.close();
+			closeAll();
 		}
 		
 		return result;
@@ -90,7 +92,7 @@ public class Bbs02Dao1 {
 		Bbs02Vo bean = new Bbs02Vo();
 		
 		try {
-			Connection conn = getConnection();
+			getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -108,12 +110,39 @@ public class Bbs02Dao1 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
-			if(rs !=null) rs.close();
-			if(pstmt !=null) pstmt.close();
-			if(conn !=null) conn.close();
+			closeAll();
 		}
-		
 		return null;
+	}
+	
+	public int updateOne(Bbs02Vo bean) throws SQLException{
+		int result = -1;
+		String sql = "UPDATE bbs02 SET sub=? , content=? WHERE num=?";
+		
+		try {
+			getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bean.getSub());
+			pstmt.setString(2, bean.getContent());
+			pstmt.setInt(3, bean.getNum());
+			return pstmt.executeUpdate();
+		}finally{
+			closeAll();
+		}
+	}
+	
+	public int updateOne(int num) throws SQLException{
+		int result = -1;
+		String sql = "DELETE FROM bbs02 WHERE num=?";
+		
+		try {
+			getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			return pstmt.executeUpdate();
+		}finally{
+			closeAll();
+		}
 	}
 
 
