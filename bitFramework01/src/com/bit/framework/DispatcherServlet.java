@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bit.controller.Controller;
-
 
 /*
  * struts에서 filter에서 사용하던것과 같은 기능
@@ -27,9 +25,11 @@ public class DispatcherServlet extends HttpServlet {
 	//container가 생성될때 한번만 
 	public void init() throws ServletException {
 		//properties 파일로 읽기
+		//배포 이후에 읽을 때는 절대 경로에서 접근 불가 > class의 로딩 위치를 찾기 위해
 		Properties prop = new Properties();
-		Class<? extends DispatcherServlet> clz = getClass();
-		ClassLoader loader = clz.getClassLoader();
+		Class clz = getClass();
+//		Class clz2 = DispatcherServlet.class;	// 위와 동일
+		ClassLoader loader = clz.getClassLoader();	//실행시 객체 정보를 담음
 		InputStream is = loader.getResourceAsStream("bit.properties");
 		try {
 			prop.load(is);

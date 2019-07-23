@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bit.framework.Controller;
+
 public class IndexController implements Controller {
 	
 	//front controller pattern에서는 container가 init 될때 생성된다. 

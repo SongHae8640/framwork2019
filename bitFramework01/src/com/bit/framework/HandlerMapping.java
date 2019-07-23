@@ -3,8 +3,6 @@ package com.bit.framework;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bit.controller.Controller;
-
 public class HandlerMapping {
 	private static Map<String, Controller> map = new HashMap<String, Controller>();
 	

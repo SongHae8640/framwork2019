@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bit.entity.Bbs02Dao1;
+import com.bit.framework.Controller;
 
 public class DetailController implements Controller {
 

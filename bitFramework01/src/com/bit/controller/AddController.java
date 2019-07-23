@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bit.framework.Controller;
+
 public class AddController implements Controller {
 
 	@Override

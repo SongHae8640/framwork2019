@@ -43,5 +43,11 @@
 -command 패턴
 	interface를 상속 받아 사용하는 
 
+-어떤 properties를 넣주냐에 따라 다른 기능 
+	모듈 조합
 
-ci mes = "frontController pattern"
+-Dao 메서드 중복
+	insert deletem update는 거의 비슷 > 묶자!!
+
+
+ci mes = "classLoader, 테스트를 위한 작업, "
