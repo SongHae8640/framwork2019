@@ -1,10 +1,12 @@
 package com.bit.framework;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -23,22 +25,27 @@ public class DispatcherServlet extends HttpServlet {
 	
 	//mapping 관리를 init에서 선언
 	//container가 생성될때 한번만 
-	///컨트롤러 또한 를 매번 찍지 않고 init 시점에 생성하고 이후에 호출하는 방식으로 가능(이후에는 파일로 내용을 관리)
 	public void init() throws ServletException {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("/index.bit", "com.bit.controller.IndexController");
-		map.put("/main.bit", "com.bit.controller.MainController");
-		map.put("/list.bit", "com.bit.controller.ListController");
-		map.put("/add.bit", "com.bit.controller.AddController");
-		map.put("/insert.bit", "com.bit.controller.InsertController");
+		//properties 파일로 읽기
+		Properties prop = new Properties();
+		Class<? extends DispatcherServlet> clz = getClass();
+		ClassLoader loader = clz.getClassLoader();
+		InputStream is = loader.getResourceAsStream("bit.properties");
+		try {
+			prop.load(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		Set<String> keys = map.keySet();
+		Set keys = prop.keySet();
 		Iterator<String> iter = keys.iterator();
 		while(iter.hasNext()){
 			String key = iter.next();
-			String clInfo = map.get(key);
+			String clInfo = prop.getProperty(key);
 			HandlerMapping.setMap(key, clInfo);
 		}
+		
 
 	};
 	
