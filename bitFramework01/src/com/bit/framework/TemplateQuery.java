@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bit.model.Bbs02Vo;
 
 //VO에 따라 다른 mapper의 경우 생성 시점에서 재정의 (abstract)
 public abstract class TemplateQuery {

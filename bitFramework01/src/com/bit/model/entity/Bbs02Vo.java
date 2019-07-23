@@ -1,4 +1,4 @@
-package com.bit.model;
+package com.bit.model.entity;
 
 import java.sql.Date;
 

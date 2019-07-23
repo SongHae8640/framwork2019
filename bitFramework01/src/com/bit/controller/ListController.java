@@ -4,12 +4,12 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bit.entity.Bbs02Dao1;
 import com.bit.framework.Controller;
+import com.bit.model.Bbs02Dao2;
 
 public class ListController implements Controller {
 	public String execute(HttpServletRequest req) throws SQLException{
-		Bbs02Dao1 dao = new Bbs02Dao1();
+		Bbs02Dao2 dao = new Bbs02Dao2();
 		req.setAttribute("aList", dao.getList());
 		return "bbs/list";
 	}

@@ -1,4 +1,4 @@
-package com.bit.entity;
+package com.bit.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.bit.framework.TemplateQuery;
 import com.bit.framework.TemplateUpdate;
-import com.bit.model.Bbs02Vo;
+import com.bit.model.entity.Bbs02Vo;
 
 public class Bbs02Dao1 {
 	

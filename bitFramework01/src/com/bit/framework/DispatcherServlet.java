@@ -27,8 +27,7 @@ public class DispatcherServlet extends HttpServlet {
 		//properties 파일로 읽기
 		//배포 이후에 읽을 때는 절대 경로에서 접근 불가 > class의 로딩 위치를 찾기 위해
 		Properties prop = new Properties();
-		Class clz = getClass();
-//		Class clz2 = DispatcherServlet.class;	// 위와 동일
+		Class<? extends DispatcherServlet> clz = getClass();
 		ClassLoader loader = clz.getClassLoader();	//실행시 객체 정보를 담음
 		InputStream is = loader.getResourceAsStream("bit.properties");
 		try {
