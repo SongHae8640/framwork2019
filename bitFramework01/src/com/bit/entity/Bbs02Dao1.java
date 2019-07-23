@@ -65,26 +65,29 @@ public class Bbs02Dao1 {
 		
 		return list;
 	}
-
-	public int insertOne(String name, String sub, String content) throws SQLException {
-		String sql = "INSERT INTO bbs02 VALUES(bbs02_num_seq.nextval,?,?,?,SYSDATE)";
-		int result = -1;
-		
+	
+	public int executeUpdate(String sql, Object[] objs) throws SQLException{
 		try {
 			getConnection();
 			pstmt= conn.prepareStatement(sql);
-			pstmt.setObject(1, name);
-			pstmt.setObject(2, sub);
-			pstmt.setObject(3, content);
-			result = pstmt.executeUpdate();
+			for (int i = 0; i < objs.length; i++) {
+				pstmt.setObject(i+1, objs[i]);
+			}
+			
+			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			closeAll();
 		}
-		
-		return result;
+		return 0;
+			
+	}
+
+	public int insertOne(String name, String sub, String content) throws SQLException {
+		String sql = "INSERT INTO bbs02 VALUES(bbs02_num_seq.nextval,?,?,?,SYSDATE)";
+		return executeUpdate(sql, new Object[]{name,sub,content});
 	}
 
 	public Bbs02Vo selectOne(int num) throws SQLException {
@@ -116,33 +119,13 @@ public class Bbs02Dao1 {
 	}
 	
 	public int updateOne(Bbs02Vo bean) throws SQLException{
-		int result = -1;
 		String sql = "UPDATE bbs02 SET sub=? , content=? WHERE num=?";
-		
-		try {
-			getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setObject(1, bean.getSub());
-			pstmt.setObject(2, bean.getContent());
-			pstmt.setObject(3, bean.getNum());
-			return pstmt.executeUpdate();
-		}finally{
-			closeAll();
-		}
+		return executeUpdate(sql, new Object[]{bean.getSub(),bean.getContent(),bean.getNum()});
 	}
 	
 	public int updateOne(int num) throws SQLException{
-		int result = -1;
 		String sql = "DELETE FROM bbs02 WHERE num=?";
-		
-		try {
-			getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setObject(1, num);
-			return pstmt.executeUpdate();
-		}finally{
-			closeAll();
-		}
+		return executeUpdate(sql, new Object[]{num});
 	}
 
 
