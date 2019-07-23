@@ -2,6 +2,8 @@ package com.bit.framework;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,31 +47,28 @@ public class DispatcherServlet extends HttpServlet{
 			throws ServletException, IOException, SQLException {
 		System.out.println("doDo 호출");
 		
-		String viewName ="";
-		String prefix = "/WEB-INF/view/";
-		String suffix = ".jsp";
-		com.bit.controller.Controller controller = null;
-		String clInfo ="";
-		
 		//url 받기
 		String root = req.getContextPath();	
 		String path = req.getRequestURI().substring(root.length());
 		System.out.println("path = "+path);
 		
-		//controller 이동
-		if(path.equals("/index.bit")){
-			clInfo = "com.bit.controller.IndexController";
-		}else if(path.equals("/main.bit")){
-			clInfo = "com.bit.controller.MainController";
-		}else if(path.equals("/list.bit")){
-			clInfo = "com.bit.controller.ListController";
-		}else if(path.equals("/add.bit")){
-			clInfo = "com.bit.controller.AddController";
-		}else if(path.equals("/insert.bit")){
-			clInfo = "com.bit.controller.InsertController";
-		}
+		//handle mapping
+		String viewName ="";
+		String prefix = "/WEB-INF/view/";
+		String suffix = ".jsp";
+		com.bit.controller.Controller controller = null;
+		String clInfo ="";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("/index.bit", "com.bit.controller.IndexController");
+		map.put("/main.bit", "com.bit.controller.MainController");
+		map.put("/list.bit", "com.bit.controller.ListController");
+		map.put("/add.bit", "com.bit.controller.AddController");
+		map.put("/insert.bit", "com.bit.controller.InsertController");
 		
 		
+		
+		
+		clInfo = map.get(path);
 		
 		try {
 			Class clazz = Class.forName(clInfo);
