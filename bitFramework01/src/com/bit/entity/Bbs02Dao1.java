@@ -73,9 +73,9 @@ public class Bbs02Dao1 {
 		try {
 			getConnection();
 			pstmt= conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setString(2, sub);
-			pstmt.setString(3, content);
+			pstmt.setObject(1, name);
+			pstmt.setObject(2, sub);
+			pstmt.setObject(3, content);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -122,9 +122,9 @@ public class Bbs02Dao1 {
 		try {
 			getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bean.getSub());
-			pstmt.setString(2, bean.getContent());
-			pstmt.setInt(3, bean.getNum());
+			pstmt.setObject(1, bean.getSub());
+			pstmt.setObject(2, bean.getContent());
+			pstmt.setObject(3, bean.getNum());
 			return pstmt.executeUpdate();
 		}finally{
 			closeAll();
@@ -138,7 +138,7 @@ public class Bbs02Dao1 {
 		try {
 			getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setObject(1, num);
 			return pstmt.executeUpdate();
 		}finally{
 			closeAll();
