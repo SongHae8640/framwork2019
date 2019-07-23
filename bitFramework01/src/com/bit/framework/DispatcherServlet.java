@@ -8,11 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bit.controller.AddController;
-import com.bit.controller.Controller;
-import com.bit.controller.IndexController;
-import com.bit.controller.ListController;
-import com.bit.controller.MainController;
 
 /*
  * struts에서 filter에서 사용하던것과 같은 기능
@@ -51,7 +46,7 @@ public class DispatcherServlet extends HttpServlet{
 		String viewName ="";
 		String prefix = "/WEB-INF/view/";
 		String suffix = ".jsp";
-		Controller controller = null;
+		com.bit.controller.Controller controller = null;
 		
 		//url 받기
 		String root = req.getContextPath();	
@@ -60,13 +55,13 @@ public class DispatcherServlet extends HttpServlet{
 		
 		//controller 이동
 		if(path.equals("/index.bit")){
-			controller = new IndexController();
+			controller = new com.bit.controller.IndexController();
 		}else if(path.equals("/main.bit")){
-			controller = new MainController();
+			controller = new com.bit.controller.MainController();
 		}else if(path.equals("/list.bit")){
-			controller = new ListController();
+			controller = new com.bit.controller.ListController();
 		}else if(path.equals("/add.bit")){
-			controller = new AddController();
+			controller = new com.bit.controller.AddController();
 		}else if(path.equals("/insert.bit")){
 			controller = new com.bit.controller.InsertController();
 		}
