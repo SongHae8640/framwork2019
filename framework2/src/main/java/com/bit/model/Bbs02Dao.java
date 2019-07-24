@@ -33,19 +33,19 @@ public class Bbs02Dao {
 	public int insertOnde(Bbs02Vo bean) throws SQLException{
 		String sql = "INSERT INTO bbs02 VALUES(bbs02_num_seq.nextval,?,?,?,SYSDATE)";
 		Object[] params = {bean.getName(), bean.getSub(), bean.getContent()};
-		JdbcTemplate template = new JdbcTemplate(dataSource);
+		JdbcTemplate<Bbs02Vo> template = new JdbcTemplate<Bbs02Vo>(dataSource);
 		return template.executeUpdate(sql, params);
 	}
 	
 	
 	
-	public List selectAll(String keyword) throws SQLException{
+	public List<Bbs02Vo> selectAll(String keyword) throws SQLException{
 		String sql = "SELECT * FROM bbs02 WHERE sub like '%'||?||'%' ORDER BY num DESC";
 		Object[] params = {keyword};
-		JdbcTemplate template = new JdbcTemplate(dataSource);
+		JdbcTemplate<Bbs02Vo> template = new JdbcTemplate<Bbs02Vo>(dataSource);
 		
-		RowMapper row = new RowMapper() {
-			public Object mapper(ResultSet rs) throws SQLException{
+		RowMapper<Bbs02Vo> row = new RowMapper<Bbs02Vo>() {
+			public Bbs02Vo mapper(ResultSet rs) throws SQLException{
 				Bbs02Vo bean = new Bbs02Vo();
 				bean.setNum(rs.getInt("num"));
 				bean.setName(rs.getString("name"));
@@ -57,6 +57,20 @@ public class Bbs02Dao {
 			}
 		};
 		return template.queryForList(sql,row, params);
+
+		//이것도 가능
+//		return template.queryForList(sql,new RowMapper() {
+//			public Object mapper(ResultSet rs) throws SQLException{
+//				Bbs02Vo bean = new Bbs02Vo();
+//				bean.setNum(rs.getInt("num"));
+//				bean.setName(rs.getString("name"));
+//				bean.setSub(rs.getString("sub"));
+//				bean.setContent(rs.getString("content"));
+//				bean.setNalja(rs.getDate("nalja"));
+//				
+//				return bean;
+//			}
+//		}, params);
 	}
 
 	

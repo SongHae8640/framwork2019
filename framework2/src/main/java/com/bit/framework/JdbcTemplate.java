@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 import com.bit.model.entity.Bbs02Vo;
 
-public class JdbcTemplate {
+public class JdbcTemplate<T> {
 	DataSource dataSource;
 	
 	public JdbcTemplate(DataSource dataSource){
@@ -39,8 +39,8 @@ public class JdbcTemplate {
 		return dataSource.getConnection();
 	}
 	
-	public List queryForList(String sql,RowMapper row, Object[] objs) throws SQLException{
-		List list = new ArrayList();
+	public List<T> queryForList(String sql,RowMapper<T> row, Object[] objs) throws SQLException{
+		List<T> list = new ArrayList<T>();
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
