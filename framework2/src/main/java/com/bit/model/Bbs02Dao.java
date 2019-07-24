@@ -17,7 +17,7 @@ public class Bbs02Dao {
 		oracle.setDriverType("oracle.jdbc.OracleDriver");
 		oracle.setURL("jdbc:oracle:thin:@localhost:1521:xe");
 		oracle.setUser("scott");
-		oracle.setPassword("1234");
+		oracle.setPassword("tiger");
 		dataSource = oracle;
 	}
 	
