@@ -18,7 +18,7 @@ public class JdbcTemplate<T> {
 		this.dataSource = dataSource;
 	}
 	
-	public int executeUpdate(String sql, Object[] objs) throws SQLException{
+	public int executeUpdate(String sql,Object ... objs) throws SQLException{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -39,7 +39,15 @@ public class JdbcTemplate<T> {
 		return dataSource.getConnection();
 	}
 	
-	public List<T> queryForList(String sql,RowMapper<T> row, Object[] objs) throws SQLException{
+	public T queryForObject(String sql,RowMapper<T> row, Object ... objs) throws SQLException{
+		return queryForList(sql, row, objs).get(0);
+	}
+
+	public List<T> queryForList(String sql,RowMapper<T> row) throws SQLException{
+		return queryForList(sql, row, new Object[]{});
+	}
+	
+	public List<T> queryForList(String sql,RowMapper<T> row, Object ... objs) throws SQLException{
 		List<T> list = new ArrayList<T>();
 		
 		Connection conn = null;
