@@ -10,6 +10,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.bit.framework.JdbcTemplate;
+import com.bit.framework.RowMapper;
 import com.bit.model.entity.Bbs02Vo;
 
 import oracle.jdbc.pool.OracleDataSource;
@@ -26,13 +27,7 @@ public class Bbs02Dao {
 		oracle.setUser("scott");
 		oracle.setPassword("tiger");
 		dataSource = oracle;
-	}
-	
-	
-	public Connection getConnection() throws SQLException{
-		return dataSource.getConnection();
-	}
-	
+	}	
 
 	
 	public int insertOnde(Bbs02Vo bean) throws SQLException{
@@ -42,37 +37,27 @@ public class Bbs02Dao {
 		return template.executeUpdate(sql, params);
 	}
 	
+	
+	
 	public List selectAll(String keyword) throws SQLException{
-		String sql = "SELECT * FROM bbs02 WHERE sub like ? ORDER BY num DESC";
-		List list = new ArrayList();
+		String sql = "SELECT * FROM bbs02 WHERE sub like '%'||?||'%' ORDER BY num DESC";
+		Object[] params = {keyword};
+		JdbcTemplate template = new JdbcTemplate(dataSource);
 		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try{
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setObject(1, keyword);
-			rs = pstmt.executeQuery();
-			while(rs.next()){
+		RowMapper row = new RowMapper() {
+			public Object mapper(ResultSet rs) throws SQLException{
 				Bbs02Vo bean = new Bbs02Vo();
 				bean.setNum(rs.getInt("num"));
 				bean.setName(rs.getString("name"));
 				bean.setSub(rs.getString("sub"));
 				bean.setContent(rs.getString("content"));
 				bean.setNalja(rs.getDate("nalja"));
-				list.add(bean);
+				
+				return bean;
 			}
-			
-		}finally{
-			if(rs!=null) rs.close();
-			if(pstmt!=null) pstmt.close();
-			if(conn!=null) conn.close();
-		}
-		
-		return list;
+		};
+		return template.queryForList(sql,row, params);
 	}
 
-
+	
 }

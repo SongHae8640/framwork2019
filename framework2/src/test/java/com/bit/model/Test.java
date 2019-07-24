@@ -8,8 +8,8 @@ public class Test {
 		
 		try {
 			Bbs02Dao dao = new Bbs02Dao();
-			Connection conn = dao.getConnection();
-			System.out.println(conn);
+//			Connection conn = dao.getConnection();
+//			System.out.println(conn);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
