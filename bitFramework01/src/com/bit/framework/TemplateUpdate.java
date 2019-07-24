@@ -36,7 +36,6 @@ public class TemplateUpdate {
 			for (int i = 0; i < objs.length; i++) {
 				pstmt.setObject(i+1, objs[i]);
 			}
-			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -44,7 +43,7 @@ public class TemplateUpdate {
 		}finally{
 			closeAll();
 		}
-		return 0;
+		return -1;
 			
 	}
 	
