@@ -2,7 +2,7 @@ package com.bit.model.entity;
 
 import java.sql.Date;
 
-public class Bbs02vo {
+public class Bbs02Vo {
 	private int num;
 	private String name, sub,content;
 	private Date nalja;
@@ -59,7 +59,7 @@ public class Bbs02vo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Bbs02vo other = (Bbs02vo) obj;
+		Bbs02Vo other = (Bbs02Vo) obj;
 		if (content == null) {
 			if (other.content != null)
 				return false;
